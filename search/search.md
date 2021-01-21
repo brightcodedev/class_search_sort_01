@@ -1,4 +1,4 @@
-| Sort Method | Time Average(Ω) | Time Best(Θ) | Time Worst(O) | BigO(Space) |
+| Search Method | Time Average(Ω) | Time Best(Θ) | Time Worst(O) | BigO(Space) |
 | - | - | - | - | - |
 | Binary | Ω(log(n)) | Θ(1) | O(log(n)) | O(1) |
 | Exponential | Ω(log(n)) | Θ(1) | O(log(n)) | O(1) |
