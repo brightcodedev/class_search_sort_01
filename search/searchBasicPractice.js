@@ -36,9 +36,9 @@ let obj = {
         
         // Check value of middle index and see if it's equal to the value we're trying to find
         // Return the middle index
-        // If the value we're trying to find is less than the value that is in the position of the middle index
+        // If the value we're trying to find is greater than the value that is in the position of the middle index
         // Recursive call setting new start index and end index values
-        // If the value we're trying to find is greater than the value that is in the position of the middle index 
+        // If the value we're trying to find is less than the value that is in the position of the middle index 
         // Recursive call setting new start index and end index values
 
         // console.log("Current array elements: ", arr.slice(startIndex, endIndex+1)); // Helpful printing to see what the current array elements are in this method call
@@ -57,17 +57,39 @@ let obj = {
         // Set end index to the middle index minus one
         // Return -1
     },
-    exponentialIterative:function(){
+    exponentialIterative:function(arr, valueToFind){
+        // If the first value in the array is the value you're looking
+        // Return 0
 
+        // Initialize i to one
+        // While i less than the length of the array and the element value at 
+        // position i is less than the value we're looking for
+        // Double the value of i
+        
+        // Use binary search to find the value
     },
-    exponentialRecursive:function(){
+    exponentialRecursive:function(arr, valueToFind, i=1){
+        // If the first value in the array is the value you're looking (Base Case)
+        // Return 0
 
+        // While i less than the length of the array and the element value at 
+        // position i is less than the value we're looking for
+        // Recursive call passing the double of i
+        // Use binary search to find the value
     },
-    linearRecursive:function(){
-
+    linearRecursive:function(arr, valueToFind, start=0){
+        // Check if the start index is greater then or equal to the final index in the array
+        // Return -1
+        // If the value of the start index is equal to the value you're looking for
+        // Return start index
+        
+        // Recursive call setting a new start value
     },
-    linearIterative:function(){
-
+    linearIterative:function(arr, valueToFind){
+        // Iterate through the given array
+        // Check during each iteration, if the current value is equal to the value you're looking for
+        // Return the current index
+        // Return -1 if not found
     },
     jumpIterative:function(){
 
