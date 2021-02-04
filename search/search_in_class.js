@@ -1,5 +1,5 @@
 let obj = {
-    valueToSearchFor: 430,
+    valueToSearchFor: 530,
     sortedArr: [10, 50, 200, 230, 400, 530, 720],
     unSortedArr: [1000, 50, 200, 850, 430, 230],
     init:function(){
@@ -21,7 +21,7 @@ let obj = {
         let result;
         let methodToRun = commands[terminalArgs[0]];
         if(methodToRun){
-            result = this[methodToRun](this.unSortedArr, terminalArgs[1] ? Number(terminalArgs[1]) : this.valueToSearchFor);
+            result = this[methodToRun](this.sortedArr, terminalArgs[1] ? Number(terminalArgs[1]) : this.valueToSearchFor);
         } else {
             let methodCommandList = Object.entries(commands).map((method)=>`\n(${method[0]}) - ${method[1]}`);
             result = `Please provide an abbreviation as a terminal argument:` + methodCommandList;
@@ -41,7 +41,7 @@ let obj = {
         } else if(valueToFind < arr[mid]){ // If the value we're trying to find is less than the value that is in the position of the middle index 
             return this.binaryRecursive(arr, valueToFind, start, mid-1); // Recursive call setting new start index and end index values
         }
-        // console.log("Current array elements: ", arr.slice(startIndex, endIndex+1)); // Helpful printing to see what the current array elements are in this method calls
+        // console.log("Current array elements: ", arr.slice(startIndex, endIndex+1)); // Helpful printing to see what the current array elements are in this method call
     },
     binaryIterative:function(arr, valueToFind){
         // console.log("Current array elements: ", arr.slice(startIndex, endIndex+1)); // Helpful printing to see what the current array elements are in this method call
@@ -75,11 +75,10 @@ let obj = {
         if(valueToFind == arr[0]){ // If the first value in the array is the value you're looking
             return 0; // Return 0
         }
-        let i=1; // Initialize i to one
         // While i less than the length of the array and the element value at 
         // position i is less than the value we're looking for
-        while(i < arr.length && valueToFind >= arr[i]){
-            i*=2; // Double the value of i
+        if(i < arr.length && valueToFind >= arr[i]){ 
+            return this.exponentialRecursive(arr, valueToFind, i*2); // Recursive call passing the double of i
         }
         return this.binaryRecursive(arr, valueToFind, i/2, Math.min(i, arr.length-1)); // Use binary search to find the value
     },
@@ -101,14 +100,75 @@ let obj = {
         }
         return -1; // Return -1 if not found
     },
-    jumpIterative:function(){
-
+    jumpIterative:function(arr, valueToFind){
+        let step = Math.floor(Math.sqrt(arr.length))-1; // Initialize the step to the square root of the total number of items in the array
+        let start = 0; // Initialize the start of the block to be 0
+        let end = step; // Set the end of the block equal to the initial step
+        while(valueToFind > arr[start]){ // As long as the value we're looking for is greater than the first value in the block
+            start += step; // Increment start by a step
+            end += step; // Increment end by a step
+            if(start > arr.length){ // If start is greater than the total elements in the array
+                return -1; // Return -1 if not found
+            }
+        }
+        // console.log(`Value is between ${start} and ${Math.min(end, arr.length-1)}`);
+        for(let i=start;i<Math.min(end, arr.length);i++){ // Start at the beginning of the block and iterate until the end of the block or end of the array
+            // console.log(valueToFind, arr[i]);
+            if(valueToFind === arr[i]){ // If the value we're looking for is equal to the current index value
+                return i; // Return the index
+            }
+        }
+        return -1; // Return -1 if not found
     },
-    interpolationIterative:function() {
+    interpolationIterative:function(arr, valueToFind) {
+        let start = 0; // Set start index
+        let end = arr.length-1; // Set end index
+        let pos; // Initialize position
 
+        // While the starting index is less than or equal to the end index 
+        // and the value we're looking for is greater than or equal to the starting value 
+        // and the value we're looking for is less or equal to than the ending value
+
+        while(start <= end && valueToFind >= arr[start] && valueToFind <= arr[end]){
+            // Use the Interpolation formula to calculate where the index would be if the values were evenly distributed
+            pos = start + Math.floor((end - start) * (valueToFind - arr[start])/(arr[end] - arr[start]));
+
+            // Indices are X
+            // Values in each position are Y
+            // X = X1 + (X2-X1) * ( (Y-Y1) / (Y2-Y1) ) // Interpolation formula
+
+            if(valueToFind === arr[pos]){ // If the value of the position we chose is equal to the value we're looking 
+                return pos; // Return the position index
+            } else if(valueToFind > arr[pos]){ // If the value of the position we chose is greater than to the value we're looking
+                start = pos+1; // Set the ending index to the position index minus one
+            } else if(valueToFind < arr[pos]) { // If the value of the position we chose is less than to the value we're looking 
+                end = pos-1; // Set the starting index to the position index minus one
+            }
+        }
+        return -1; // Return -1
     },
-    interpolationRecursive:function() {
+    interpolationRecursive:function(arr, valueToFind, start=0, end=arr.length-1) {
+        // While the starting index is less than or equal to the end index 
+        // and the value we're looking for is greater than or equal to the starting value 
+        // and the value we're looking for is less or equal to than the ending value
+        // i.e. If out of range for this subArray
+        if(start > end || valueToFind < arr[start] || valueToFind > arr[end]){
+            return -1; // Return -1
+        }
+        // Use the Interpolation formula to calculate where the index would be if the values were evenly distributed
+        let pos = start + Math.floor((end - start) * (valueToFind - arr[start])/(arr[end] - arr[start]));
 
+        // Indices are X
+        // Values in each position are Y
+        // X = X1 + (X2-X1) * ( (Y-Y1) / (Y2-Y1) ) // Interpolation formula
+
+        if(valueToFind === arr[pos]){ // If the value of the position we chose is equal to the value we're looking 
+            return pos; // Return the position index
+        } else if(valueToFind > arr[pos]){ // If the value of the position we chose is greater than to the value we're looking
+            return this.interpolationRecursive(arr, valueToFind, pos+1, end); // Recursive call passing pos+1 as the new start index
+        } else if(valueToFind < arr[pos]) { // If the value of the position we chose is less than to the value we're looking 
+            return this.interpolationRecursive(arr, valueToFind, start, pos-1); // Recursive call passing pos-1 as the new end index
+        }
     }
 }
 require.main === module && obj.init();

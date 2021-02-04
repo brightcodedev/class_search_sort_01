@@ -42,7 +42,6 @@ let obj = {
         // Recursive call setting new start index and end index values
 
         // console.log("Current array elements: ", arr.slice(startIndex, endIndex+1)); // Helpful printing to see what the current array elements are in this method call
-
     },
     binaryIterative:function(arr, valueToFind){
         // Initially set start value
@@ -91,15 +90,64 @@ let obj = {
         // Return the current index
         // Return -1 if not found
     },
-    jumpIterative:function(){
+    jumpIterative:function(arr, valueToFind){
+        // Initialize the step to the square root of the total number of items in the array
+        // Initialize the start of the block to be 0
+        // Set the end of the block equal to the initial step
+        // As long as the value we're looking for is greater than the first value in the block
+        // Increment start by a step
+        // Increment end by a step
+        // If start is greater than the total elements in the array
+        // Return -1 if not found
 
+        // console.log(`Value is between ${start} and ${Math.min(end, arr.length-1)}`);
+        // Start at the beginning of the block and iterate until the end of the block or end of the array
+        // console.log(valueToFind, arr[i]);
+        // If the value we're looking for is equal to the current index value
+        // Return the index
+
+        // Return -1 if not found
     },
-    interpolationIterative:function() {
+    interpolationIterative:function(arr, valueToFind) {
+        // Set start index
+        // Set end index
+        // Initialize position
 
+        // While the starting index is less than or equal to the end index 
+        // and the value we're looking for is greater than or equal to the starting value 
+        // and the value we're looking for is less or equal to than the ending value
+        // Use the Interpolation formula to calculate where the index would be if the values were evenly distributed
+
+        // Indices are X
+        // Values in each position are Y
+        // X = X1 + (X2-X1) * ( (Y-Y1) / (Y2-Y1) ) // Interpolation formula
+
+        // If the value of the position we chose is equal to the value we're looking 
+        // Return the position index
+        // If the value of the position we chose is greater than to the value we're looking
+        // Set the ending index to the position index minus one
+        // If the value of the position we chose is less than to the value we're looking 
+        // Set the starting index to the position index minus one
+
+        // return -1;
     },
-    interpolationRecursive:function() {
+    interpolationRecursive:function(arr, valueToFind, start=0, end=arr.length-1) {
+        // If the start index is greater than the end index (Base Case)
+        // Return -1
+        // Use the Interpolation formula to calculate where the index would be if the values were evenly distributed
 
+        // Indices are X
+        // Values in each position are Y
+        // X = X1 + (X2-X1) * ( (Y-Y1) / (Y2-Y1) ) // Interpolation formula
+
+        // If the value of the position we chose is equal to the value we're looking 
+        // Return the position index
+        // If the value of the position we chose is greater than to the value we're looking
+        // Recursive call passing pos+1 as the new start index
+        // If the value of the position we chose is less than to the value we're looking 
+        // Recursive call passing pos-1 as the new end index
     }
+
 }
 require.main === module && obj.init();
 module.exports = obj;
